@@ -75,7 +75,12 @@ invoice = {
         'recurringInvoiceId': {
             'type': ['null', 'string']
 
+        },
+        'orderNo': {
+            'type': ['null', 'string']
+
         }
+
 
     }
 }

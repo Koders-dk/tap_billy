@@ -44,7 +44,6 @@ def giveup(error):
                       giveup=giveup,
                       interval=30)
 
-
 def request(url, access_token, params):
     LOGGER.info("Making request: GET {} {}".format(url, params))
     headers = {'X-ACCESS-TOKEN': access_token}
@@ -67,13 +66,11 @@ def parse_datetime(date_time):
     # the assumption is that the timestamp comes in in UTC
     return parsed_datetime.isoformat('T') + 'Z'
 
-
-
 def sync_invoices(access_token):
     LOGGER.info('Syncing accounts.')
 
     start = time.time()
-    response = request('{}/invoices'.format(BASE_URL), access_token, {})
+    response = request('{}/invoices?fields=id'.format(BASE_URL), access_token, {})
 
     invoices = response.json().get('invoices', [])
 
@@ -105,9 +102,7 @@ def do_sync(args):
         LOGGER.fatal("Missing {}.".format(", ".join(missing_keys)))
         raise RuntimeError
 
-    singer.write_schema('invoices',
-                        schemas.invoice,
-                        key_properties=["id"])
+    singer.write_schema('invoices', schemas.invoice,'id')
 
     sync_invoices(access_token)
 
