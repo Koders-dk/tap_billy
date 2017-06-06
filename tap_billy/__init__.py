@@ -26,7 +26,7 @@ BASE_URL = "https://api.billysbilling.com/v2"
 CONFIG = {}
 
 DEFAULT_STATE = {
-    'accounts': {}
+    'invoice': {}
 }
 
 DEFAULT_START_DATE = '2016-08-01'
