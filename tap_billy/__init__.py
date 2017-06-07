@@ -121,6 +121,9 @@ def sync_locales(access_token):
         singer.write_record('locales', locale)
 
 
+def sync_accountGroups(access_token):
+    print("test")
+
 def do_sync(args):
      #pylint: disable=global-statement
     global DEFAULT_START_DATE
