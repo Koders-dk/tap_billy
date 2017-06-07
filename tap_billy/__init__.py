@@ -78,23 +78,37 @@ def load_schema(entity_name):
     return schema
 
 def sync_invoices(access_token):
-    LOGGER.info('Syncing accounts.')
+    LOGGER.info('Syncing invoices.')
 
-    start = time.time()
     response = request('{}/invoices'.format(BASE_URL), access_token, {})
 
     invoices = response.json().get('invoices', [])
 
     datetime_fields = ['createdTime', 'approvedTime']
 
-    for row in invoices:
+    for invoice in invoices:
 
         for datetime_field in datetime_fields:
-            row[datetime_field] = parse_datetime(row[datetime_field])
+            invoice[datetime_field] = parse_datetime(invoice[datetime_field])
 
-        singer.write_record('invoices', row)
+        singer.write_record('invoices', invoice)
 
 
+def sync_invoiceReminders(access_token):
+    LOGGER.info('Syncing invoiceReminders.')
+
+    response = request('{}/invoiceReminders'.format(BASE_URL), access_token, {})
+
+    invoiceReminders = response.json().get('invoiceReminders', [])
+
+    datetime_fields = ['createdTime']
+
+    for invoiceReminder in invoiceReminders:
+
+        for datetime_field in datetime_fields:
+            invoiceReminder[datetime_field] = parse_datetime(invoiceReminder[datetime_field])
+
+        singer.write_record('invoiceRemidners', invoiceReminder)
 
 
 def do_sync(args):
@@ -122,10 +136,15 @@ def do_sync(args):
         LOGGER.fatal("Missing {}.".format(", ".join(missing_keys)))
         raise RuntimeError
 
+    #Invoices
     schema_invoice = load_schema('invoice')
     singer.write_schema('invoices', schema_invoice, key_properties=['id'])
-
     sync_invoices(access_token)
+
+    #InvoiceReminders
+    schema_invoiceReminder = load_schema('invoiceReminder')
+    singer.write_schema('invoiceReminders', schema_invoiceReminder, key_properties=['id'])
+    sync_invoiceReminders(access_token)
 
 
 def main():

@@ -1,0 +1,46 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "organizationId": {
+            "type": "string"
+        },
+        "contactId": {
+            "type": "string"
+        },
+        "createdTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "associations": {
+            "type": "array",
+            "paymentMethodId": {
+               "type": "string"
+           }
+        },
+        "flatFee": {
+            "type": ["null","number"]
+        },
+        "feeCurrency": {
+            "type": "number"
+        },
+        "sendEmail": {
+            "type": ["null", "boolean"]
+        },
+        "contactPersonId": {
+            "type": "string"
+        },
+        "emailSubject": {
+            "type": "string"
+        },
+        "copyToUserId": {
+            "type": "string"
+        },
+        "downloadUrl": {
+            "type": "string"
+        }
+
+    }
+}
