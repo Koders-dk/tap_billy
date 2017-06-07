@@ -9,7 +9,7 @@ setup(name='tap-billy',
       author='Koders',
       url='http://singer.io',
       classifiers=['Programming Language :: Python :: 3 :: Only'],
-      py_modules=['tap_dinero'],
+      py_modules=['tap_billy'],
       install_requires=[
           'singer-python==0.3.1',
           'backoff==1.3.2',

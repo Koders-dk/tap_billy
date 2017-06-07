@@ -1,0 +1,101 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "organizationId": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        },
+        "createdTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "approvedTime": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "contactId": {
+            "type": "string"
+        },
+        "attContactPersonId": {
+            "type": ["null", "string"]
+        },
+        "entryDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "paymentTermsMode": {
+            "type": "string"
+        },
+        "paymentTermsDays": {
+            "type": "integer"
+        },
+        "dueDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "state": {
+            "type": "string"
+        },
+        "sentState": {
+            "type": "string"
+        },
+        "invoiceNo": {
+            "type": "string"
+        },
+        "taxMode": {
+            "type": "string"
+        },
+        "amount": {
+            "type": "number"
+        },
+        "tax": {
+            "type": "number"
+        },
+        "currencyId": {
+            "type": "string"
+        },
+        "exchangeRate": {
+            "type": "number"
+        },
+        "balance": {
+            "type": "number"
+        },
+        "isPaid": {
+            "type": "boolean"
+        },
+        "creditedInvoiceId": {
+            "type": ["null", "string"]
+        },
+        "contactMessage": {
+            "type": "string"
+        },
+        "lineDescription": {
+            "type": "string"
+        },
+        "recurringInvoiceId": {
+            "type": ["null", "string"]
+        },
+        "templateId": {
+            "type": "string"
+        },
+        "downloadUrl": {
+            "type": "string"
+        },
+        "orderNo": {
+            "type": ["null", "string"]
+
+        },
+         "paymentMethods": {
+             "type": "array",
+             "paymentMethodId": {
+                "type": "string"
+            }
+         }
+
+    }
+}

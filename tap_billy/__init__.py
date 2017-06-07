@@ -15,8 +15,11 @@ import dateutil.parser
 import backoff
 import requests
 import singer
+from singer import utils
+from singer import transform
 
-import schemas
+
+
 
 LOGGER = singer.get_logger()
 SESSION = requests.Session()
@@ -61,20 +64,37 @@ def request(url, access_token, params):
     return resp
 
 def parse_datetime(date_time):
-    parsed_datetime = dateutil.parser.parse(date_time)
+    utc_datetime = datetime.datetime.utcnow()
 
     # the assumption is that the timestamp comes in in UTC
-    return parsed_datetime.isoformat('T') + 'Z'
+    return utc_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+def get_abs_path(path):
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)), path)
+
+def load_schema(entity_name):
+    schema = utils.load_json(get_abs_path('schemas/{}.json'.format(entity_name)))
+
+    return schema
 
 def sync_invoices(access_token):
     LOGGER.info('Syncing accounts.')
 
     start = time.time()
-    response = request('{}/invoices?fields=id'.format(BASE_URL), access_token, {})
+    response = request('{}/invoices'.format(BASE_URL), access_token, {})
 
     invoices = response.json().get('invoices', [])
 
-    singer.write_records('invoices', invoices)
+    datetime_fields = ['createdTime', 'approvedTime']
+
+    for row in invoices:
+
+        for datetime_field in datetime_fields:
+            row[datetime_field] = parse_datetime(row[datetime_field])
+
+        singer.write_record('invoices', row)
+
+
 
 
 def do_sync(args):
@@ -102,7 +122,8 @@ def do_sync(args):
         LOGGER.fatal("Missing {}.".format(", ".join(missing_keys)))
         raise RuntimeError
 
-    singer.write_schema('invoices', schemas.invoice,'id')
+    schema_invoice = load_schema('invoice')
+    singer.write_schema('invoices', schema_invoice, key_properties=['id'])
 
     sync_invoices(access_token)
 
