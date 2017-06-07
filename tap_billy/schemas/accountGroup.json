@@ -1,0 +1,32 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "organizationId": {
+            "type": "string"
+        },
+        "accountNo": {
+            "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+            "type": "string"
+        },
+        "natureId": {
+            "type": ["null", "string"]
+        },
+        "sumFrom": {
+            "type": ["null", "string"]
+        },
+        "style": {
+            "type": ["null", "string"]
+        },
+        "priority": {
+            "type": "integer"
+        }
+    }
+}

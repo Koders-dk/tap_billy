@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "organizationId": {
+            "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "accountNo": {
+            "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "groupId": {
+            "type": "string"
+        },
+        "natureId": {
+            "type": ["null", "string"]
+        },
+        "systemRole": {
+            "type": ["null", "string"]
+        },
+        "currencyId": {
+            "type": "string"
+        },
+        "taxRateId": {
+            "type": ["null", "string"]
+        },
+        "isPaymentEnabled": {
+            "type": "boolean"
+        },
+        "isBankAccount": {
+            "type": "boolean"
+        },
+        "isArchived": {
+            "type": "boolean"
+        },
+        "bankId": {
+            "type": ["null", "string"]
+        },
+        "bankName": {
+            "type": ["null", "string"]
+        },
+        "bankRoutingNo": {
+            "type": ["null", "string"]
+        },
+        "bankAccountNo": {
+            "type": ["null", "string"]
+        },
+        "bankSwift": {
+            "type": ["null", "string"]
+        },
+        "bankIban": {
+            "type": ["null", "string"]
+        }
+    }
+}

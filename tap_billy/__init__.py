@@ -117,12 +117,35 @@ def sync_locales(access_token):
 
     locales = response.json().get('locales', [])
 
-    for locale in locales:
-        singer.write_record('locales', locale)
+    singer.write_records('locales', locales)
 
 
 def sync_accountGroups(access_token):
-    print("test")
+    LOGGER.info('Syncing accountGroups')
+
+    response = request('{}/accountGroups'.format(BASE_URL), access_token, {})
+
+    accountGroups = response.json().get('accountGroups', [])
+
+    singer.write_records('accountGroups', accountGroups)
+
+def sync_accountNatures(access_token):
+    LOGGER.info('Syncing accountNatures')
+
+    response = request('{}/accountNatures'.format(BASE_URL), access_token, {})
+
+    accountNatures = response.json().get('accountNatures', [])
+
+    singer.write_records('accountNatures', accountNatures)
+
+def sync_accounts(access_token):
+    LOGGER.info('Syncing accounts')
+
+    response = request('{}/accounts'.format(BASE_URL), access_token, {})
+
+    accounts = response.json().get('accounts', [])
+
+    singer.write_records('accounts', accounts)
 
 def do_sync(args):
      #pylint: disable=global-statement
@@ -163,6 +186,23 @@ def do_sync(args):
     schema_locale = load_schema('locale')
     singer.write_schema('locales', schema_locale, key_properties=['id'])
     sync_locales(access_token)
+
+    #accountGroups
+    schema_accountGroup = load_schema('accountGroup')
+    singer.write_schema('accountGroups', schema_accountGroup, key_properties=['id'])
+    sync_accountGroups(access_token)
+
+    #accountNatures
+    schema_accountNature = load_schema('accountNature')
+    singer.write_schema('accountNatures', schema_accountNature, key_properties=['id'])
+    sync_accountNatures(access_token)
+
+    #accounts
+    schema_account = load_schema('account')
+    singer.write_schema('accounts', schema_account, key_properties=['id'])
+    sync_accounts(access_token)
+
+
 
 
 def main():

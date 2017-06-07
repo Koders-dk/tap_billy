@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "reportType": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "normalBalance": {
+          "type": "string"
+        }
+    }
+}
