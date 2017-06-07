@@ -110,6 +110,16 @@ def sync_invoiceReminders(access_token):
 
         singer.write_record('invoiceRemidners', invoiceReminder)
 
+def sync_locales(access_token):
+    LOGGER.info('Syncing locales')
+
+    response = request('{}/locales'.format(BASE_URL), access_token, {})
+
+    locales = response.json().get('locales', [])
+
+    for locale in locales:
+        singer.write_record('locales', locale)
+
 
 def do_sync(args):
      #pylint: disable=global-statement
@@ -145,6 +155,11 @@ def do_sync(args):
     schema_invoiceReminder = load_schema('invoiceReminder')
     singer.write_schema('invoiceReminders', schema_invoiceReminder, key_properties=['id'])
     sync_invoiceReminders(access_token)
+
+    #locales
+    schema_locale = load_schema('locale')
+    singer.write_schema('locales', schema_locale, key_properties=['id'])
+    sync_locales(access_token)
 
 
 def main():
